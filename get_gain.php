@@ -13,14 +13,18 @@ if ($conn->connect_error) {
     die("Verbindung fehlgeschlagen: " . $conn->connect_error);
 }
 
-// SQL-Abfrage, um zeit und split aus der Tabelle workout abzurufen
-$sql = "SELECT zeit, split FROM workout";
+// SQL-Abfrage, um die relevanten Daten aus den Tabellen workout und sets abzurufen
+$sql = "
+    SELECT w.zeit, w.split, s.reps, s.gewicht, (s.reps * s.gewicht) AS volumen
+    FROM workout w
+    JOIN sets s ON w.workout_id = s.sets_id
+";
 $result = $conn->query($sql);
 
 $data = [];
 
 if ($result->num_rows > 0) {
-    // Ausgabe der Ergebnisse
+    // Ausgabe der Ergebnisse und Berechnung des Volumens
     while ($row = $result->fetch_assoc()) {
         $data[] = $row;
     }
