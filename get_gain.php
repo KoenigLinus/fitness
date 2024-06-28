@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 $sql = "
     SELECT w.zeit, w.split, s.reps, s.gewicht, (s.reps * s.gewicht) AS volumen
     FROM workout w
-    JOIN sets s ON w.workout_id = s.sets_id
+    JOIN sets s ON w.workout_id = s.workout_id
 ";
 $result = $conn->query($sql);
 

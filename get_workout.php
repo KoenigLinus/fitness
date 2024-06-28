@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 // SQL-Abfrage, um zeit und split aus der Tabelle workout abzurufen
-$sql = "SELECT zeit, split FROM workout";
+$sql = "SELECT zeit, split FROM workout;";
 $result = $conn->query($sql);
 
 $data = [];
