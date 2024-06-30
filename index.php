@@ -5,116 +5,13 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitness</title>
     <link rel="icon" href="fitnessstudio.png" type="image/png">
-    <style>
-        html {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        body {
-            font-family: Verdana, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            width: 60vw;
-        }
-        * {
-            font-family: Helvetica, sans-serif;
-        }
-        section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        header, section {
-            width: 100%;
-            margin-top: 20px;
-
-            width: 100%;
-            background-color: #fff;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-            border-radius: 8px;
-        }
-        .register-btn, .login-btn {
-            background-color: #f39f18;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 10px;
-            border-radius: 20px;
-        }
-        .register-btn:hover, .login-btn:hover {
-            background-color: #ec7c26;
-        }
-        .box {
-            display: block;
-            width: 100%;
-            text-align: center;
-            background-color: #f39f18;
-            color: #fff;
-            text-decoration: none;
-            padding: 15px 0;
-            border-radius: 4px;
-        }
-        .box:hover {
-            background-color: #ec7c26;
-        }
-        .chart-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            box-sizing: border-box;
-        }
-        h1 {
-            color: #333;
-            font-size: 24px;
-            text-align: center;
-            margin: 0;
-        }
-        .latest-workouts{
-            display: <?php echo $loggedIn ? "block" : "none"; ?>;
-            width: 100%;
-            text-align: center;
-            background-color: #fff;
-            color: #333;
-            padding: 10px;
-            margin: 10px 10px;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-        }
-        .latest-workouts h2 {
-            margin: 0;
-            padding: 10px 0;
-        }
-        .latest-workouts p {
-            margin: 0;
-            padding: 5px 0;
-        }
-        .divider_line {
-            width: 100%;
-            height: 2px;
-            background-color: #f39f18;
-            margin: 10px 0;
-        }
-    </style>
+    <link rel="stylesheet" href="./style.css">
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
