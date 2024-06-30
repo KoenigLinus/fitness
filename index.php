@@ -17,12 +17,16 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
 <body>
 
     <header>
-        <a href="registrieren.php" class="register-btn">Registrieren</a>
-        <a href="anmelden.php" class="login-btn">Anmelden</a>
         <?php if ($loggedIn): ?>
-            <div class="user-name"><?php echo htmlspecialchars(
-                $userName
-            ); ?></div>
+            <div class="user-info">
+                <div class="user-name"><?php echo htmlspecialchars(
+                    $userName
+                ); ?></div>
+                <div class="login-status">Angemeldet</div>
+            </div>
+        <?php else: ?>
+            <a href="registrieren.php" class="register-btn">Registrieren</a>
+            <a href="anmelden.php" class="login-btn">Anmelden</a>
         <?php endif; ?>
     </header>
 

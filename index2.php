@@ -20,10 +20,12 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
         <a href="registrieren.php" class="register-btn">Registrieren</a>
         <a href="anmelden.php" class="login-btn">Anmelden</a>
         <?php if ($loggedIn): ?>
-            <div class="user-name"><?php echo htmlspecialchars(
-                $userName
-            ); ?></div>
-            <div class="login-btn">Angemeldet</div>
+            <div class="user-info">
+                <div class="user-name"><?php echo htmlspecialchars(
+                    $userName
+                ); ?></div>
+                <div class="login-status">Angemeldet</div>
+            </div>
         <?php endif; ?>
     </header>
 
