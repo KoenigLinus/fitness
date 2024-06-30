@@ -5,7 +5,7 @@ function fetchRestData() {
   fetch("get_rest.php")
     .then((response) => response.json())
     .then((data) => {
-      console.log("Fetched data:", data); // Debugging
+      console.log("Rest: Fetched data:", data); // Debugging
 
       // Ensure data is always treated as an array
       if (!Array.isArray(data)) {
@@ -35,9 +35,8 @@ function fetchRestData() {
         differences.push(differenceHours);
       }
 
-      console.log(splits); // ["Push", "Pull", ...]
-      console.log(time);
-      console.log(differences);
+      console.log("Rest: splits:", splits); // ["Push", "Pull", ...]
+      console.log("Rest: diffrences:", differences);
 
       var restOptions = {
         series: differences,
@@ -64,31 +63,26 @@ function fetchRestData() {
                 show: false,
               },
             },
-            track: {
-              show: true,
-              background: "#f2f2f2",
-              strokeWidth: "97%",
-              opacity: 1,
-              margin: 5, // margin is in pixels
-              dropShadow: {
-                enabled: true,
-                top: 2,
-                left: 0,
-                blur: 4,
-                opacity: 0.15,
+            barLabels: {
+              enabled: true,
+              useSeriesColors: true,
+              margin: 8,
+              fontSize: "16px",
+              formatter: function (seriesName, opts) {
+                return (
+                  seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+                );
               },
             },
           },
         },
-        colors: ["#f39f1857"], //, "#f39f1896", "#f39†1868", "#f39†18"],
+        //colors: ["#f39f1857", "#f39f1896", "#f39f1868", "#f39f18"],
+        colors: ["#f39f18"],
         labels: splits,
         responsive: [
           {
             breakpoint: 480,
             options: {
-              chart: {
-                height: 320,
-              },
               legend: {
                 show: false,
               },
