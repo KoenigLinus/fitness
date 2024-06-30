@@ -19,7 +19,6 @@ function fetchRestData() {
 
       const splits = data.map((item) => item.Split);
       const time = data.map((item) => item.Zeit);
-      const rest = data.map((item) => parseInt(item.Rest, 10));
 
       let today = new Date();
       let differences = [];
@@ -32,13 +31,12 @@ function fetchRestData() {
         let differenceMs = today - dateFromArray;
 
         // Differenz in Minuten umrechnen und zur Liste hinzufügen
-        let differenceMinutes = Math.floor(differenceMs / 60000);
-        differences.push(differenceMinutes);
+        let differenceHours = Math.floor(differenceMs / 60000 / 60);
+        differences.push(differenceHours);
       }
 
       console.log(splits); // ["Push", "Pull", ...]
       console.log(time);
-      console.log(rest); // [72, 85, ...]
       console.log(differences);
 
       var restOptions = {
