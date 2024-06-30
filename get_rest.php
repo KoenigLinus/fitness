@@ -1,4 +1,10 @@
 <?php
+ini_set("display_errors", 1);
+ini_set("display_startup_errors", 1);
+error_reporting(E_ALL);
+
+header("Content-Type: application/json");
+
 // Datenbankverbindung herstellen
 $servername = "localhost";
 $username = "root";
@@ -9,32 +15,30 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Verbindung prüfen
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
 }
 
 // Zufällige Zahl zwischen 45,3 und 76,4 generieren
 $min = 45.3;
 $max = 76.4;
-$randomNumber = rand($min * 10, $max * 10) / 10;
-echo "Random Number: " . $randomNumber . "<br>";
+$randomNumber = mt_rand($min * 10, $max * 10) / 10;
 
 // Splits vom letzten Workout in JSON ausgeben
-$sql = "SELECT split FROM workout ORDER BY workout_id DESC LIMIT 1";
+$sql = "SELECT split, zeit FROM workout ORDER BY workout_id DESC;";
 $result = $conn->query($sql);
 
+$data = [];
+
 if ($result->num_rows > 0) {
-    // Ausgabe der Daten jeder Zeile
-    while ($row = $result->fetch_assoc()) {
-        $lastWorkoutSplit = $row["split"];
-    }
-    $jsonOutput = json_encode(
-        ["lastWorkoutSplit" => $lastWorkoutSplit],
-        JSON_PRETTY_PRINT
-    );
-    echo "Last Workout Split in JSON format:<br>" . $jsonOutput;
+    $row = $result->fetch_assoc();
+    $data["Split"] = $row["split"];
+    $data["Zeit"] = $row["zeit"];
+    $data["Rest"] = $randomNumber;
 } else {
-    echo "0 results";
+    $data["error"] = "0 results";
 }
+
+echo json_encode($data, JSON_PRETTY_PRINT);
 
 $conn->close();
 ?>

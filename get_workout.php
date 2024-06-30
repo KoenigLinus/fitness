@@ -8,6 +8,7 @@ $dbname = "fitness";
 // Verbindung zur Datenbank herstellen
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+header("Content-Type: application/json");
 // Verbindung prüfen
 if ($conn->connect_error) {
     die("Verbindung fehlgeschlagen: " . $conn->connect_error);
@@ -18,6 +19,8 @@ $sql = "SELECT zeit, split FROM workout;";
 $result = $conn->query($sql);
 
 $data = [];
+
+echo "<script>console.log('" . addslashes($result) . "');</script>";
 
 if ($result->num_rows > 0) {
     // Ausgabe der Ergebnisse
@@ -30,7 +33,6 @@ if ($result->num_rows > 0) {
 }
 
 // Ausgabe als JSON
-header("Content-Type: application/json");
 echo json_encode($data);
 
 // Verbindung schließen
