@@ -92,8 +92,8 @@ CREATE TABLE `nutzerapp` (
 --
 
 CREATE TABLE `nutzerapp_workout` (
-  `app_nutzer_id` varchar(255) DEFAULT NULL,
-  `workout_id` varchar(255) DEFAULT NULL
+  `app_nutzer_id` INT DEFAULT NULL,
+  `workout_id` INT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -103,8 +103,8 @@ CREATE TABLE `nutzerapp_workout` (
 --
 
 CREATE TABLE `nutzer_nutzerapp` (
-  `nutzer_id` varchar(255) DEFAULT NULL,
-  `nutzerapp_id` varchar(255) DEFAULT NULL
+  `nutzer_id` INT DEFAULT NULL,
+  `nutzerapp_id` INT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -138,8 +138,8 @@ CREATE TABLE `workout` (
 --
 
 CREATE TABLE `workout_übungen` (
-  `workout_id` varchar(255) DEFAULT NULL,
-  `übung_id` varchar(255) DEFAULT NULL
+  `workout_id` INT DEFAULT NULL,
+  `übung_id` INT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -257,8 +257,8 @@ INSERT INTO `übungen_muskelgruppen` (`übung`, `muskelgruppe1`, `muskelgruppe2`
 --
 
 CREATE TABLE `übungen_sets` (
-  `übung_id` varchar(255) DEFAULT NULL,
-  `sets_id` varchar(255) DEFAULT NULL
+  `übung_id` INT DEFAULT NULL,
+  `sets_id` INT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

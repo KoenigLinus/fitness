@@ -1,6 +1,14 @@
 <?php
 session_start();
+
+// Debugging: Ausgabe der Session-Variablen
+//echo "<pre>";
+//var_dump($_SESSION);
+//echo "</pre>";
+
+// Check if user is logged in
 $loggedIn = isset($_SESSION["nutzer_id"]);
+// Retrieve user's first name if logged in
 $userName = $loggedIn ? $_SESSION["f_name"] : "";
 ?>
 
@@ -18,15 +26,15 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
 
     <header>
         <?php if ($loggedIn): ?>
-            <div class="user-info">
-                <div class="user-name"><?php echo htmlspecialchars(
+            <div class="user-info btn">
+                <div class="user-name">Hallo, <?php echo htmlspecialchars(
                     $userName
-                ); ?></div>
-                <div class="login-status">Angemeldet</div>
+                ); ?>. Du bist Angemeldet</div>
             </div>
         <?php else: ?>
             <a href="registrieren.php" class="register-btn">Registrieren</a>
-            <a href="anmelden.php" class="login-btn">Anmelden</a>
+            <!--<a href="anmelden.php" class="login-btn">Anmelden</a>-->
+            <a href="login.php" class="login-btn btn">Anmelden</a>
         <?php endif; ?>
     </header>
 
@@ -56,7 +64,7 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
     <section>
         <h2>Gewichtsverlauf</h2>
         <div class="chart-container">
-            <div id="weigthChart"></div>
+            <div id="weigth"></div>
         </div>
     </section>
 
@@ -68,49 +76,7 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
     <script src="change_display.js"></script>
     <script src="fetch_gain.js"></script>
     <script src="fetch_rest.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            var weigthOptions = {
-                chart: {
-                    type: 'line',
-                    height: '100%'
-                },
-                series: [{
-                    name: 'Weight',
-                    data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-                }],
-                xaxis: {
-                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep']
-                },
-                responsive: [{
-                    breakpoint: 600,
-                    options: {
-                        chart: {
-                            width: '100%'
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }]
-            };
-            var weigthChart = new ApexCharts(document.querySelector("#weigthChart"), weigthOptions);
-            weigthChart.render();
+    <script src="fetch_weigth.js"></script>
 
-
-            <?php if ($loggedIn): ?>
-            fetch('fetch_latest_workouts.php')
-                .then(response => response.json())
-                .then(data => {
-                    const workoutsList = document.getElementById('latest-workouts-list');
-                    data.forEach(workout => {
-                        const workoutItem = document.createElement('p');
-                        workoutItem.textContent = `${workout.date}: ${workout.description}`;
-                        workoutsList.appendChild(workoutItem);
-                    });
-                });
-            <?php endif; ?>
-        });
-    </script>
 </body>
 </html>

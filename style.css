@@ -45,7 +45,8 @@ section {
 }
 
 .register-btn,
-.login-btn {
+.login-btn,
+.btn {
     background-color: #f39f18;
     color: #fff;
     text-decoration: none;
