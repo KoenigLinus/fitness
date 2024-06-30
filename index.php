@@ -1,7 +1,7 @@
 <?php
 session_start();
-$loggedIn = isset($_SESSION['nutzer_id']);
-$userName = $loggedIn ? $_SESSION['f_name'] : '';
+$loggedIn = isset($_SESSION["nutzer_id"]);
+$userName = $loggedIn ? $_SESSION["f_name"] : "";
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +12,11 @@ $userName = $loggedIn ? $_SESSION['f_name'] : '';
     <title>Fitness</title>
     <link rel="icon" href="fitnessstudio.png" type="image/png">
     <style>
+        html {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         body {
             font-family: Verdana, sans-serif;
             background-color: #f4f4f4;
@@ -20,59 +25,53 @@ $userName = $loggedIn ? $_SESSION['f_name'] : '';
             align-items: center;
             height: 100vh;
             margin: 0;
-            padding: 10px;
+            width: 60vw;
         }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 600px;
-            background-color: #fff;
-            padding: 10px 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-            border-radius: 8px;
-        }
-        header div {
-            cursor: pointer;
-            padding: 10px;
-        }
-        .register-btn, .login-btn {
-            background-color: #f39f18;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
-            margin-left: 10px;
-        }
-        .register-btn:hover, .login-btn:hover {
-            background-color: #ec7c26;
+        * {
+            font-family: Helvetica, sans-serif;
         }
         section {
             display: flex;
             flex-direction: column;
             align-items: center;
-            width: 100%;
-            max-width: 600px;
-            margin-top: 20px;
         }
-        a.workout {
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header, section {
+            width: 100%;
+            margin-top: 20px;
+
+            width: 100%;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            border-radius: 8px;
+        }
+        .register-btn, .login-btn {
+            background-color: #f39f18;
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 10px;
+            border-radius: 20px;
+        }
+        .register-btn:hover, .login-btn:hover {
+            background-color: #ec7c26;
+        }
+        .box {
             display: block;
             width: 100%;
             text-align: center;
             background-color: #f39f18;
             color: #fff;
             text-decoration: none;
-            padding: 15px;
-            margin: 10px 0;
+            padding: 15px 0;
             border-radius: 4px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            box-sizing: border-box;
         }
-        a.workout:hover {
+        .box:hover {
             background-color: #ec7c26;
         }
         .chart-container {
@@ -82,7 +81,6 @@ $userName = $loggedIn ? $_SESSION['f_name'] : '';
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 100%;
             box-sizing: border-box;
-            margin-top: 20px;
         }
         h1 {
             color: #333;
@@ -90,14 +88,14 @@ $userName = $loggedIn ? $_SESSION['f_name'] : '';
             text-align: center;
             margin: 0;
         }
-        .latest-workouts {
-            display: <?php echo $loggedIn ? 'block' : 'none'; ?>; 
+        .latest-workouts{
+            display: <?php echo $loggedIn ? "block" : "none"; ?>;
             width: 100%;
             text-align: center;
             background-color: #fff;
             color: #333;
             padding: 10px;
-            margin: 10px 0;
+            margin: 10px 10px;
             border-radius: 4px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
@@ -110,37 +108,59 @@ $userName = $loggedIn ? $_SESSION['f_name'] : '';
             margin: 0;
             padding: 5px 0;
         }
+        .divider_line {
+            width: 100%;
+            height: 2px;
+            background-color: #f39f18;
+            margin: 10px 0;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
 
     <header>
-        <div id="rest" onclick="changeDisplay()"></div>
-        <div id="info" onclick="changeDisplay()">
-            <div id="gain"></div>
-        </div>
         <a href="registrieren.php" class="register-btn">Registrieren</a>
         <a href="anmelden.php" class="login-btn">Anmelden</a>
         <?php if ($loggedIn): ?>
-            <div class="user-name"><?php echo htmlspecialchars($userName); ?></div>
+            <div class="user-name"><?php echo htmlspecialchars(
+                $userName
+            ); ?></div>
         <?php endif; ?>
     </header>
 
     <section>
-        <a href="add_workout.php" class="workout center">+</a>
+        <div id="rest" onclick="changeDisplay()"></div>
+        <div id="info" onclick="changeDisplay()">
+            <div id="gain"></div>
+        </div>
+    </section>
+
+    <section>
         <?php if ($loggedIn): ?>
+            <h2>Letzte Workouts</h2>
+            <a href="add_workout.php" class="box">+</a>
+            <div class="divider_line"></div>
             <div class="latest-workouts">
-                <h2>Letzte Workouts</h2>
                 <div id="latest-workouts-list"></div>
             </div>
         <?php else: ?>
             <h2>Letzte Workouts</h2>
+            <a href="add_workout.php" class="box">+</a>
+            <div class="divider_line"></div>
+            <div class="box">Not logged in</div>
         <?php endif; ?>
-        <a href="impressum.php" class="workout">Impressum und Kontakt</a>
+    </section>
+
+    <section>
+        <h2>Gewichtsverlauf</h2>
         <div class="chart-container">
-            <div id="chart"></div>
+            <div id="weigthChart"></div>
         </div>
+    </section>
+
+    <section>
+        <a href="impressum.php" class="box">Impressum und Kontakt</a>
     </section>
 
     <script src="fetch_workout.js"></script>
@@ -149,7 +169,7 @@ $userName = $loggedIn ? $_SESSION['f_name'] : '';
     <script src="fetch_rest.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            var options = {
+            var weigthOptions = {
                 chart: {
                     type: 'line',
                     height: '100%'
@@ -173,10 +193,10 @@ $userName = $loggedIn ? $_SESSION['f_name'] : '';
                     }
                 }]
             };
-            var chart = new ApexCharts(document.querySelector("#chart"), options);
-            chart.render();
+            var weigthChart = new ApexCharts(document.querySelector("#weigthChart"), weigthOptions);
+            weigthChart.render();
 
-           
+
             <?php if ($loggedIn): ?>
             fetch('fetch_latest_workouts.php')
                 .then(response => response.json())
