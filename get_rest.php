@@ -19,7 +19,8 @@ if ($conn->connect_error) {
 }
 
 // Splits vom letzten Workout in JSON ausgeben
-$sql = "SELECT split, zeit FROM workout ORDER BY workout_id DESC;";
+$sql =
+    "SELECT split, zeit FROM workout WHERE (split, workout_id) IN (SELECT split, MAX(workout_id) FROM workout GROUP BY split) ORDER BY workout_id DESC;";
 $result = $conn->query($sql);
 
 $data = [];

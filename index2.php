@@ -1,9 +1,3 @@
-<?php
-session_start();
-$loggedIn = isset($_SESSION['nutzer_id']);
-$userName = $loggedIn ? $_SESSION['f_name'] : '';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,13 +26,17 @@ $userName = $loggedIn ? $_SESSION['f_name'] : '';
             padding: 10px 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
-            border-radius: 8px;
+            border-radius: 8px; 
         }
         header div {
             cursor: pointer;
             padding: 10px;
         }
-        .register-btn, .login-btn {
+        .user-name {
+            font-size: 18px;
+            color: #333;
+        }
+        .login-btn {
             background-color: #f39f18;
             color: #fff;
             text-decoration: none;
@@ -46,9 +44,8 @@ $userName = $loggedIn ? $_SESSION['f_name'] : '';
             border-radius: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
-            margin-left: 10px;
         }
-        .register-btn:hover, .login-btn:hover {
+        .login-btn:hover {
             background-color: #ec7c26;
         }
         section {
@@ -91,7 +88,6 @@ $userName = $loggedIn ? $_SESSION['f_name'] : '';
             margin: 0;
         }
         .latest-workouts {
-            display: <?php echo $loggedIn ? 'block' : 'none'; ?>; 
             width: 100%;
             text-align: center;
             background-color: #fff;
@@ -114,29 +110,29 @@ $userName = $loggedIn ? $_SESSION['f_name'] : '';
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
+    <?php
+    session_start();
+    $loggedIn = isset($_SESSION['nutzer_id']);
+    $userName = $loggedIn ? $_SESSION['f_name'] : '';
+    ?>
 
     <header>
         <div id="rest" onclick="changeDisplay()"></div>
         <div id="info" onclick="changeDisplay()">
             <div id="gain"></div>
         </div>
-        <a href="registrieren.php" class="register-btn">Registrieren</a>
-        <a href="anmelden.php" class="login-btn">Anmelden</a>
         <?php if ($loggedIn): ?>
             <div class="user-name"><?php echo htmlspecialchars($userName); ?></div>
+            <a href="#" class="login-btn">Angemeldet</a>
         <?php endif; ?>
     </header>
 
     <section>
         <a href="add_workout.php" class="workout center">+</a>
-        <?php if ($loggedIn): ?>
-            <div class="latest-workouts">
-                <h2>Letzte Workouts</h2>
-                <div id="latest-workouts-list"></div>
-            </div>
-        <?php else: ?>
+        <div class="latest-workouts">
             <h2>Letzte Workouts</h2>
-        <?php endif; ?>
+            <div id="latest-workouts-list"></div>
+        </div>
         <a href="impressum.php" class="workout">Impressum und Kontakt</a>
         <div class="chart-container">
             <div id="chart"></div>
@@ -176,8 +172,7 @@ $userName = $loggedIn ? $_SESSION['f_name'] : '';
             var chart = new ApexCharts(document.querySelector("#chart"), options);
             chart.render();
 
-           
-            <?php if ($loggedIn): ?>
+            // Fetch and display the latest workouts
             fetch('fetch_latest_workouts.php')
                 .then(response => response.json())
                 .then(data => {
@@ -188,8 +183,8 @@ $userName = $loggedIn ? $_SESSION['f_name'] : '';
                         workoutsList.appendChild(workoutItem);
                     });
                 });
-            <?php endif; ?>
         });
     </script>
 </body>
 </html>
+

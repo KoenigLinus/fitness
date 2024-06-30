@@ -1,9 +1,5 @@
 <?php
-// Datenbankverbindungsparameter
-$servername = "localhost"; // oder 127.0.0.1
-$username = "root";
-$password = "";
-$dbname = "fitness";
+require_once("config.php");
 
 // Verbindung zur Datenbank herstellen
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -15,9 +11,9 @@ if ($conn->connect_error) {
 
 // SQL-Abfrage, um die relevanten Daten aus den Tabellen workout und sets abzurufen
 $sql = "
-    SELECT w.zeit, w.split, sets.reps, sets.gewicht, (sets.reps * sets.gewicht) AS volumen
+    SELECT w.zeit, w.split, s.reps, s.gewicht, (s.reps * s.gewicht) AS volumen
     FROM workout w
-    JOIN sets s ON w.workout_id = s.workout_id;
+    JOIN sets s ON w.workout_id = s.sets_id
 ";
 $result = $conn->query($sql);
 

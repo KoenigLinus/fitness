@@ -4,10 +4,10 @@ session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
      require_once("config.php");
 
-    // Verbindung und so
+  
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Überprüfe Verbindung
+
     if ($conn->connect_error) {
         die("Verbindung fehlgeschlagen: " . $conn->connect_error);
     }
@@ -20,7 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Daten in SQL einfügen 
     $sql = "INSERT INTO nutzer (e_mail, f_name, l_name, geb_datum, pas) VALUES (?, ?, ?, ?, ?)";
 
 
@@ -41,7 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Fehler bei der Vorbereitung des SQL-Statements: " . $conn->error;
     }
 
-    // Schließe die Verbindung
     $conn->close();
 } else {
     echo "Ungültige Anforderung";

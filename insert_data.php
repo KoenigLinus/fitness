@@ -5,7 +5,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // die Verbindung "testen"
     if ($conn->connect_error) {
         die("Verbindung fehlgeschlagen: " . $conn->connect_error);
     }
@@ -19,13 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     if ($stmt = $conn->prepare($sql)) {
-        // Binde die Parameter
-        $stmt->bind_param("sdd", $datum, $größe, $gewicht); // 's' für String (Datum), 'd' für Double (Fließkommazahl)
+       
+        $stmt->bind_param("sdd", $datum, $größe, $gewicht); 
 
    
         if ($stmt->execute()) {
             echo "Neuer Datensatz erfolgreich erstellt";
-            header("location: index.php");
+            header("location: index2.php");
         } else {
             echo "Fehler: " . $stmt->error;
         }
@@ -36,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Fehler bei der Vorbereitung des SQL-Statements: " . $conn->error;
     }
 
-    // Datenbankverbindung geht weg
+   
     $conn->close();
 } else {
     echo "Ungültige Anforderung";

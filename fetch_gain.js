@@ -2,11 +2,9 @@ let gainChart;
 
 // Daten für das Diagramm abrufen und Diagramm/Tabelle aktualisieren
 function fetchgainData() {
-  console.log("FetchgainData wird ausgeführt.");
   fetch("get_gain.php")
     .then((response) => response.json())
     .then((data) => {
-      console.log("FetchgainData wird ausgeführt.   2");
       console.log("Fetched data:", data);
       const splits = data.map((item) => item.Splits);
       const volume = data.map((item) =>
