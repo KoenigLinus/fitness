@@ -1,9 +1,11 @@
 # Probleme
 
-- [ ] keine Relationstabelle zwischen `nutzer` und `nuter_app` in `adddate.php`
+- [ ] `app_weight.php` hinzufügen
+- [ ] Beispieldaten hinzufügen
 
 ---
 
+- [x] keine Relationstabelle zwischen `nutzer` und `nuter_app` in `adddate.php`
 - [x] `loggedIn` funktioniert nicht
 - [x] Login funktioniert nicht
 - [x] Weiterleidung nach `index2.php` unterbrechen

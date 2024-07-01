@@ -1,5 +1,5 @@
 <?php
-// Establish database connection (replace with your own connection details)
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -7,16 +7,9 @@ $dbname = "fitness";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
 }
-/*
-if (!isset($_GET["nutzer_id"]) || !is_numeric($_GET["nutzer_id"])) {
-    die(json_encode(["error" => "Invalid or missing nutzer_id"]));
-}*/
-
-//var_dump($_SESSION);
 
 session_start();
 
@@ -26,7 +19,8 @@ $sql = "SELECT workout.split, workout.zeit
         FROM workout
         INNER JOIN nutzer_workout ON workout.workout_id = nutzer_workout.workout_id
         INNER JOIN nutzer ON nutzer_workout.nutzer_id = nutzer.nutzer_id
-        WHERE nutzer.nutzer_id = ?;";
+        WHERE nutzer.nutzer_id = ?
+        ORDER BY workout.zeit DESC;"; // Add ORDER BY clause to sort by time in ascending order
 
 $stmt = $conn->prepare($sql);
 if ($stmt === false) {

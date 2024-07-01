@@ -1,4 +1,3 @@
-
 <?php
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
@@ -26,7 +25,8 @@ if (!$nutzer_id) {
 $sql = "SELECT gewicht, datum
         FROM nutzerapp
         JOIN nutzer_nutzerapp ON nutzerapp.nutzerapp_id = nutzer_nutzerapp.nutzerapp_id
-        WHERE nutzer_nutzerapp.nutzer_id = ?";
+        WHERE nutzer_nutzerapp.nutzer_id = ?
+        ORDER BY datum ASC"; // Added ORDER BY clause to sort by date in descending order
 
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
@@ -51,14 +51,9 @@ while ($row = $result->fetch_assoc()) {
     ];
 }
 
-// Sort data by datum (date)
-ksort($data);
-
 $stmt->close();
 $conn->close();
 
 header("Content-Type: application/json");
 echo json_encode($data);
-
-
 ?>
