@@ -7,6 +7,14 @@ function fetchRestData() {
     .then((data) => {
       console.log("Rest: Fetched data:", data); // Debugging
 
+      // Check for error in fetched data
+      if (data.error) {
+        console.error("Error fetching data:", data.error);
+        // Display error message to the user, if necessary
+        document.querySelector("#rest-error").innerText = data.error;
+        return;
+      }
+
       // Ensure data is always treated as an array
       if (!Array.isArray(data)) {
         if (data !== null && typeof data === "object") {

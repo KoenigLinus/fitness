@@ -8,6 +8,7 @@ session_start();
 
 // Check if user is logged in
 $loggedIn = isset($_SESSION["nutzer_id"]);
+$nutzer_id = $loggedIn ? $_SESSION["nutzer_id"] : "999999";
 // Retrieve user's first name if logged in
 $userName = $loggedIn ? $_SESSION["f_name"] : "";
 ?>
@@ -20,9 +21,9 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
     <title>Fitness</title>
     <link rel="icon" href="fitnessstudio.png" type="image/png">
     <link rel="stylesheet" href="./style.css">
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 </head>
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <header>
         <?php if ($loggedIn): ?>

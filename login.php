@@ -31,12 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Check if email exists in database
             if ($stmt->num_rows == 1) {
                 // Bind result variables
-                $stmt->bind_result($user_id, $f_name, $hashed_password);
+                $stmt->bind_result($nutzer_id, $f_name, $hashed_password);
                 if ($stmt->fetch()) {
                     // Verify hashed password
                     if (password_verify($password, $hashed_password)) {
                         // Password correct, set session variables
-                        $_SESSION["nutzer_id"] = $user_id;
+                        $_SESSION["nutzer_id"] = $nutzer_id;
                         $_SESSION["f_name"] = $f_name;
 
                         var_dump($_SESSION);

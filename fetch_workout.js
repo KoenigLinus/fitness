@@ -1,17 +1,23 @@
-fetch("get_workout.php")
-  .then((response) => response.json())
-  .then((data) => {
-    let list = document.getElementById("dynamicList");
-    data.forEach((item) => {
-      let listItem = document.createElement("li");
+document.addEventListener("DOMContentLoaded", (event) => {
+  fetch("path/to/your_php_script.php") // Adjust the path to your PHP script
+    .then((response) => response.json())
+    .then((data) => {
+      const container = document.getElementById("workoutContainer");
+      container.innerHTML = ""; // Clear any existing content
 
-      // Datum formatieren
-      let date = new Date(item.Date);
-      let formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+      if (data.message) {
+        container.innerHTML = `<div>${data.message}</div>`;
+      } else {
+        data.forEach((item) => {
+          const splitDiv = document.createElement("div");
+          splitDiv.textContent = item.split;
+          const zeitDiv = document.createElement("div");
+          zeitDiv.textContent = item.zeit;
 
-      listItem.textContent = `${item.Split} - ${formattedDate}`;
-      listItem.classList.add("workout"); // CSS-Klasse hinzufügen
-      list.appendChild(listItem);
-    });
-  })
-  .catch((error) => console.error("Error:", error));
+          container.appendChild(splitDiv);
+          container.appendChild(zeitDiv);
+        });
+      }
+    })
+    .catch((error) => console.error("Error:", error));
+});
