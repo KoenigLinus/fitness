@@ -1,9 +1,8 @@
 <?php
 session_start();
-if(isset($_SESSION["user_id"])){
-
-}else{
-   // header("location: index.html");
+if (isset($_SESSION["nutzer_id"])) {
+} else {
+    // header("location: index.html");
 }
 ?>
 
@@ -79,4 +78,3 @@ if(isset($_SESSION["user_id"])){
     </div>
 </body>
 </html>
-

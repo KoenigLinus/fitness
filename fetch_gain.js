@@ -17,14 +17,20 @@ function fetchgainData() {
       }
 
       const zeit = data.map((item) => item.zeit);
-      const splits = data.map((item) => item.split);
-      const volumen = data.map((item) => item.volumen);
+      const splits = [...new Set(data.map((item) => item.split))];
+
+      // Prepare the series data
+      const seriesData = splits.map((split) => {
+        return {
+          name: split,
+          data: data
+            .filter((item) => item.split === split)
+            .map((item) => item.volumen),
+        };
+      });
 
       const gainOptions = {
-        series: splits.map((split, index) => ({
-          name: split,
-          data: volumen[index],
-        })),
+        series: seriesData,
         chart: {
           type: "line",
           height: 350,
@@ -33,12 +39,12 @@ function fetchgainData() {
           enabled: false,
         },
         xaxis: {
-          categories: zeit, //data.map((item) => item.Date), // assuming `data` has a `Date` field for categories
+          categories: zeit, // assuming `zeit` has the dates for categories
         },
         tooltip: {
           y: {
             formatter: function (val) {
-              return val.toFixed(2) + "%";
+              return val.toFixed(2); // assuming `volumen` is not in percentage
             },
           },
         },

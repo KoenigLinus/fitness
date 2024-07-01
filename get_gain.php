@@ -19,12 +19,11 @@ if (!isset($_SESSION["nutzer_id"]) || !is_numeric($_SESSION["nutzer_id"])) {
 $nutzer_id = intval($_SESSION["nutzer_id"]);
 
 // SQL-Abfrage, um die relevanten Daten aus den Tabellen workout und sets abzurufen
-$sql = "
-    SELECT w.zeit, w.split, (wu.sets * wu.reps * wu.gewicht) AS volumen
-    FROM `workout` w
-    JOIN `workout_übungen` wu ON wu.workout_id = w.workout_id
-    JOIN `nutzer_workout` nw ON nw.workout_id = w.workout_id
-    WHERE nw.nutzer_id = ?;";
+$sql = "SELECT w.zeit, w.split, (wu.sets * wu.reps * wu.gewicht) AS volumen
+        FROM `workout` w
+        JOIN `workout_übungen` wu ON wu.workout_id = w.workout_id
+        JOIN `nutzer_workout` nw ON nw.workout_id = w.workout_id
+        WHERE nw.nutzer_id = ?;";
 
 $stmt = $conn->prepare($sql);
 if ($stmt === false) {
@@ -43,12 +42,13 @@ if (!$result) {
 $data = [];
 
 if ($result->num_rows > 0) {
-    // Ausgabe der Ergebnisse und Berechnung des Volumens
-    $data[] = [
-        "zeit" => $row["zeit"],
-        "split" => $row["split"],
-        "volumen" => $row["volumen"],
-    ];
+    while ($row = $result->fetch_assoc()) {
+        $data[] = [
+            "zeit" => $row["zeit"],
+            "split" => $row["split"],
+            "volumen" => $row["volumen"],
+        ];
+    }
 } else {
     echo json_encode(["message" => "Keine Ergebnisse gefunden."]);
     exit();
@@ -60,5 +60,4 @@ echo json_encode($data);
 
 // Verbindung schließen
 $conn->close();
-
 ?>
