@@ -16,8 +16,7 @@
             padding: 20px;
         }
         .container {
-            width: 100%;
-            max-width: 600px;
+            width: 60vw;
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
