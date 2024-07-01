@@ -1,11 +1,11 @@
-let weigthChart;
+let weightChart;
 
 // Fetch data and update chart/table
-function fetchWeigthData() {
-  fetch("get_weigth.php")
+function fetchWeightData() {
+  fetch("get_weight.php")
     .then((response) => response.json())
     .then((data) => {
-      console.log("weigth: Fetched data:", data); // Debugging
+      console.log("weight: Fetched data:", data); // Debugging
 
       // Ensure data is always treated as an array
       if (!Array.isArray(data)) {
@@ -20,7 +20,7 @@ function fetchWeigthData() {
       const dates = data.map((item) => item.datum);
       const weights = data.map((item) => item.gewicht);
 
-      var weigthOptions = {
+      var weightOptions = {
         series: [
           {
             name: "Gewicht",
@@ -61,14 +61,14 @@ function fetchWeigthData() {
         },
       };
 
-      if (weigthChart) {
-        weigthChart.updateOptions(weigthOptions);
+      if (weightChart) {
+        weightChart.updateOptions(weightOptions);
       } else {
-        weigthChart = new ApexCharts(
-          document.querySelector("#weigth"),
-          weigthOptions,
+        weightChart = new ApexCharts(
+          document.querySelector("#weight"),
+          weightOptions,
         );
-        weigthChart.render();
+        weightChart.render();
       }
     })
     .catch((error) => console.error("Error fetching data:", error));
@@ -77,5 +77,5 @@ function fetchWeigthData() {
 // Load initial data
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Document loaded. Fetching data...");
-  fetchWeigthData();
+  fetchWeightData();
 });

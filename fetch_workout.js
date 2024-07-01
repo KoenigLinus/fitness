@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     .then((response) => response.json())
     .then((data) => {
       const container = document.getElementById("workoutContainer");
-      container.innerHTML = ""; // Clear any existing content
+      //container.innerHTML = ""; // Clear any existing content
 
       if (data.message) {
         container.innerHTML = `<div>${data.message}</div>`;

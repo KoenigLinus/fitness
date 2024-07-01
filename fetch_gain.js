@@ -6,6 +6,16 @@ function fetchgainData() {
     .then((response) => response.json())
     .then((data) => {
       console.log("Fetched data:", data);
+
+      if (!Array.isArray(data)) {
+        if (data !== null && typeof data === "object") {
+          // If data is a single object, convert it to an array
+          data = [data];
+        } else {
+          throw new Error("Fetched data is neither an array nor an object");
+        }
+      }
+
       const splits = data.map((item) => item.Splits);
       const volume = data.map((item) =>
         item.Volume.map((v) => parseInt(v, 10)),

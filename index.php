@@ -71,6 +71,13 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
     </section>
 
     <section>
+        <h2>Volumenverlauf</h2>
+        <div class="chart-container">
+            <div id="gain"></div>
+        </div>
+    </section>
+
+    <section>
         <a href="impressum.php" class="box">Impressum und Kontakt</a>
     </section>
 
