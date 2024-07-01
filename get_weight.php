@@ -1,3 +1,4 @@
+
 <?php
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
@@ -44,13 +45,20 @@ if (!$result) {
 
 $data = [];
 while ($row = $result->fetch_assoc()) {
-    $data[$row["datum"]] = $row["gewicht"];
+    $data[] = [
+        "gewicht" => $row["gewicht"],
+        "datum" => $row["datum"],
+    ];
 }
+
+// Sort data by datum (date)
+ksort($data);
 
 $stmt->close();
 $conn->close();
 
 header("Content-Type: application/json");
 echo json_encode($data);
+
 
 ?>

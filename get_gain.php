@@ -1,5 +1,5 @@
 <?php
-require_once("config.php");
+require_once "config.php";
 
 // Verbindung zur Datenbank herstellen
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -14,7 +14,9 @@ $sql = "
     SELECT w.zeit, w.split, s.reps, s.gewicht, (s.reps * s.gewicht) AS volumen
     FROM workout w
     JOIN sets s ON w.workout_id = s.sets_id
-";
+    JOIN nutzer_workout ON nutzer_workout.workout_id = workout.workout_id
+    WHERE nutzer_workout.nutzer_id = ?";
+
 $result = $conn->query($sql);
 
 $data = [];
