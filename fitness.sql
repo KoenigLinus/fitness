@@ -91,8 +91,8 @@ CREATE TABLE `nutzerapp` (
 -- Tabellenstruktur für Tabelle `nutzerapp_workout`
 --
 
-CREATE TABLE `nutzerapp_workout` (
-  `app_nutzer_id` INT DEFAULT NULL,
+CREATE TABLE `nutzer_workout` (
+  `nutzer_id` INT DEFAULT NULL,
   `workout_id` INT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
