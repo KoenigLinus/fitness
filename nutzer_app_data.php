@@ -64,11 +64,8 @@ if (isset($_SESSION["nutzer_id"])) {
     <div class="eingabe-container">
         <h2>Dateneingabe</h2>
         <form action="insert_data.php" method="post">
-            <label for="datum">Datum:</label>
+            <label for="datum">Datum (von Heute):</label>
             <input type="date" id="datum" name="datum" required>
-
-            <label for="größe">Größe (in cm):</label>
-            <input type="number" step="0.01" id="größe" name="größe" required>
 
             <label for="gewicht">Gewicht (in kg):</label>
             <input type="number" step="0.01" id="gewicht" name="gewicht" required>

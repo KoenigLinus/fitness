@@ -10,13 +10,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $datum = $_POST["datum"];
-    $größe = $_POST["größe"];
     $gewicht = $_POST["gewicht"];
 
-    $sql = "INSERT INTO nutzerapp (datum, größe, gewicht) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO nutzerapp (datum, gewicht) VALUES (?, ?)";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("sdd", $datum, $größe, $gewicht);
+        $stmt->bind_param("sd", $datum, $gewicht);
 
         if ($stmt->execute()) {
             echo "Neuer Datensatz erfolgreich erstellt";
