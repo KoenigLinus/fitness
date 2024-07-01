@@ -22,7 +22,19 @@ session_start();
 
 $nutzer_id = $_SESSION["nutzer_id"]; // Assuming nutzer_id is passed as a GET parameter
 
-$sql = " SELECT workout.split, workout.zeit
+$sql = "SELECT w.split, w.zeit
+FROM workout w
+INNER JOIN (
+    SELECT split, MAX(zeit) AS max_zeit
+    FROM workout
+    GROUP BY split
+) latest_workouts ON w.split = latest_workouts.split AND w.zeit = latest_workouts.max_zeit
+INNER JOIN nutzer_workout nw ON w.workout_id = nw.workout_id
+INNER JOIN nutzer n ON nw.nutzer_id = n.nutzer_id
+WHERE n.nutzer_id = ?
+ORDER BY w.zeit DESC;";
+
+/*SELECT workout.split, workout.zeit
 FROM workout
 INNER JOIN (
     SELECT split, MAX(workout_id) AS max_workout_id
@@ -32,7 +44,7 @@ INNER JOIN (
 INNER JOIN nutzer_workout ON workout.workout_id = nutzer_workout.workout_id
 INNER JOIN nutzer ON nutzer_workout.nutzer_id = nutzer.nutzer_id
 WHERE nutzer.nutzer_id = ?
-ORDER BY workout.workout_id DESC;";
+ORDER BY workout.workout_id DESC;*/
 
 $stmt = $conn->prepare($sql);
 if ($stmt === false) {
