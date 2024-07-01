@@ -1,3 +1,4 @@
+
 <?php
 session_start();
 $loggedIn = isset($_SESSION["nutzer_id"]);
@@ -22,12 +23,11 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
             <div class="user-info btn">
                 <div class="user-name">Hallo, <?php echo htmlspecialchars(
                     $userName
-                ); ?>. Du bist Angemeldet</div>
+                ); ?></div>
             </div>
             <a href="logout.php" class="btn">Abmelden</a>
         <?php else: ?>
             <a href="registrieren.php" class="btn">Registrieren</a>
-            <!--<a href="anmelden.php" class="login-btn">Anmelden</a>-->
             <a href="login.php" class="btn">Anmelden</a>
         <?php endif; ?>
     </header>
@@ -57,6 +57,10 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
         <div class="chart-container">
             <div id="weight"></div>
         </div>
+        <form id="weightForm" action="save_weight.php" method="POST"> // @Bogi
+            <input type="number" name="weight" step="0.1" placeholder="Gewicht (kg)" required>
+            <button type="submit">Gewicht aktualisieren</button>
+        </form>
     </section>
 
     <section>
