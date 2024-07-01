@@ -1,15 +1,7 @@
 <?php
 session_start();
-
-// Debugging: Ausgabe der Session-Variablen
-//echo "<pre>";
-//var_dump($_SESSION);
-//echo "</pre>";
-
-// Check if user is logged in
 $loggedIn = isset($_SESSION["nutzer_id"]);
 $nutzer_id = $loggedIn ? $_SESSION["nutzer_id"] : "999999";
-// Retrieve user's first name if logged in
 $userName = $loggedIn ? $_SESSION["f_name"] : "";
 ?>
 
