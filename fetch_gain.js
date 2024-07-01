@@ -5,7 +5,7 @@ function fetchgainData() {
   fetch("get_gain.php")
     .then((response) => response.json())
     .then((data) => {
-      console.log("Fetched data:", data);
+      console.log("Gain: Fetched data:", data);
 
       if (!Array.isArray(data)) {
         if (data !== null && typeof data === "object") {
@@ -16,15 +16,14 @@ function fetchgainData() {
         }
       }
 
-      const splits = data.map((item) => item.Splits);
-      const volume = data.map((item) =>
-        item.Volume.map((v) => parseInt(v, 10)),
-      );
+      const zeit = data.map((item) => item.zeit);
+      const splits = data.map((item) => item.split);
+      const volumen = data.map((item) => item.volumen);
 
       const gainOptions = {
         series: splits.map((split, index) => ({
           name: split,
-          data: volume[index],
+          data: volumen[index],
         })),
         chart: {
           type: "line",
@@ -34,15 +33,7 @@ function fetchgainData() {
           enabled: false,
         },
         xaxis: {
-          title: {
-            text: "Gewinnrate (%)",
-          },
-          categories: data.map((item) => item.Date), // assuming `data` has a `Date` field for categories
-        },
-        yaxis: {
-          title: {
-            text: "Personen",
-          },
+          categories: zeit, //data.map((item) => item.Date), // assuming `data` has a `Date` field for categories
         },
         tooltip: {
           y: {
@@ -57,7 +48,7 @@ function fetchgainData() {
         gainChart.updateOptions(gainOptions);
       } else {
         gainChart = new ApexCharts(
-          document.querySelector("#win-percentage-chart"),
+          document.querySelector("#gain"),
           gainOptions,
         );
         gainChart.render();

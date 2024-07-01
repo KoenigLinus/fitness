@@ -39,7 +39,9 @@ function fetchRestData() {
         let differenceMs = today - dateFromArray;
 
         // Differenz in Minuten umrechnen und zur Liste hinzufügen
-        let differenceHours = Math.floor(differenceMs / 60000 / 60);
+        let differenceHours = Math.floor(
+          (36 - differenceMs / 60000 / 60) * 2.777,
+        );
         differences.push(differenceHours);
       }
 
@@ -78,7 +80,9 @@ function fetchRestData() {
               fontSize: "16px",
               formatter: function (seriesName, opts) {
                 return (
-                  seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+                  seriesName +
+                  ":  " +
+                  opts.w.globals.series[opts.seriesIndex / 2.7]
                 );
               },
             },

@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Erstellungszeit: 28. Jun 2024 um 00:15
--- Server-Version: 10.4.32-MariaDB
--- PHP-Version: 8.2.12
+-- Host: localhost
+-- Generation Time: Jul 01, 2024 at 06:12 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `fitness`
+-- Database: `fitness`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `muskelgruppen`
+-- Table structure for table `muskelgruppen`
 --
 
 CREATE TABLE `muskelgruppen` (
@@ -34,7 +34,7 @@ CREATE TABLE `muskelgruppen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `muskelgruppen`
+-- Dumping data for table `muskelgruppen`
 --
 
 INSERT INTO `muskelgruppen` (`muskel_id`, `muskel_b`, `muskel_g`) VALUES
@@ -60,7 +60,7 @@ INSERT INTO `muskelgruppen` (`muskel_id`, `muskel_b`, `muskel_g`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `nutzer`
+-- Table structure for table `nutzer`
 --
 
 CREATE TABLE `nutzer` (
@@ -72,10 +72,17 @@ CREATE TABLE `nutzer` (
   `pas` varchar(255) NOT NULL DEFAULT 'default_password'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `nutzer`
+--
+
+INSERT INTO `nutzer` (`nutzer_id`, `f_name`, `l_name`, `e_mail`, `geb_datum`, `pas`) VALUES
+(1, 'Linus', 'Behrens', 'linus@behrens-familie.de', '2005-10-14', '$2y$10$fudaFNcW/1j004rm0OsjbOFzewaU6LC02j5nIaeIRbeiX31ygePVa');
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `nutzerapp`
+-- Table structure for table `nutzerapp`
 --
 
 CREATE TABLE `nutzerapp` (
@@ -85,44 +92,58 @@ CREATE TABLE `nutzerapp` (
   `nutzerapp_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `nutzerapp`
+--
+
+INSERT INTO `nutzerapp` (`größe`, `gewicht`, `datum`, `nutzerapp_id`) VALUES
+(183, 68, '2024-07-01', 1),
+(183, 63, '2024-06-01', 2);
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `nutzerapp_workout`
---
-
-CREATE TABLE `nutzer_workout` (
-  `nutzer_id` INT DEFAULT NULL,
-  `workout_id` INT DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `nutzer_nutzerapp`
+-- Table structure for table `nutzer_nutzerapp`
 --
 
 CREATE TABLE `nutzer_nutzerapp` (
-  `nutzer_id` INT DEFAULT NULL,
-  `nutzerapp_id` INT DEFAULT NULL
+  `nutzer_id` int(11) DEFAULT NULL,
+  `nutzerapp_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nutzer_nutzerapp`
+--
+
+INSERT INTO `nutzer_nutzerapp` (`nutzer_id`, `nutzerapp_id`) VALUES
+(1, 1),
+(1, 2);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `sets`
+-- Table structure for table `nutzer_workout`
 --
 
-CREATE TABLE `sets` (
-  `sets_id` int(11) NOT NULL,
-  `reps` varchar(255) DEFAULT NULL,
-  `gewicht` varchar(255) DEFAULT NULL
+CREATE TABLE `nutzer_workout` (
+  `nutzer_id` int(11) DEFAULT NULL,
+  `workout_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `nutzer_workout`
+--
+
+INSERT INTO `nutzer_workout` (`nutzer_id`, `workout_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `workout`
+-- Table structure for table `workout`
 --
 
 CREATE TABLE `workout` (
@@ -131,21 +152,37 @@ CREATE TABLE `workout` (
   `zeit` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `workout`
+--
+
+INSERT INTO `workout` (`workout_id`, `split`, `zeit`) VALUES
+(4, 'Push', '2024-07-01 16:49:05');
+
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `workout_übungen`
+-- Table structure for table `workout_übungen`
 --
 
 CREATE TABLE `workout_übungen` (
-  `workout_id` INT DEFAULT NULL,
-  `übung_id` INT DEFAULT NULL
+  `workout_id` int(11) DEFAULT NULL,
+  `übung_id` int(11) DEFAULT NULL,
+  `reps` varchar(255) DEFAULT NULL,
+  `gewicht` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `workout_übungen`
+--
+
+INSERT INTO `workout_übungen` (`workout_id`, `übung_id`, `reps`, `gewicht`) VALUES
+(4, 1, 10, 40);
 
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `übungen`
+-- Table structure for table `übungen`
 --
 
 CREATE TABLE `übungen` (
@@ -154,7 +191,7 @@ CREATE TABLE `übungen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `übungen`
+-- Dumping data for table `übungen`
 --
 
 INSERT INTO `übungen` (`übung_id`, `übung_b`) VALUES
@@ -198,7 +235,7 @@ INSERT INTO `übungen` (`übung_id`, `übung_b`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `übungen_muskelgruppen`
+-- Table structure for table `übungen_muskelgruppen`
 --
 
 CREATE TABLE `übungen_muskelgruppen` (
@@ -209,7 +246,7 @@ CREATE TABLE `übungen_muskelgruppen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Daten für Tabelle `übungen_muskelgruppen`
+-- Dumping data for table `übungen_muskelgruppen`
 --
 
 INSERT INTO `übungen_muskelgruppen` (`übung`, `muskelgruppe1`, `muskelgruppe2`, `muskelgruppe3`) VALUES
@@ -250,93 +287,70 @@ INSERT INTO `übungen_muskelgruppen` (`übung`, `muskelgruppe1`, `muskelgruppe2`
 (35, 10, 0, 0),
 (36, 10, 9, 0);
 
--- --------------------------------------------------------
-
 --
--- Tabellenstruktur für Tabelle `übungen_sets`
---
-
-CREATE TABLE `übungen_sets` (
-  `übung_id` INT DEFAULT NULL,
-  `sets_id` INT DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Indizes der exportierten Tabellen
+-- Indexes for dumped tables
 --
 
 --
--- Indizes für die Tabelle `muskelgruppen`
+-- Indexes for table `muskelgruppen`
 --
 ALTER TABLE `muskelgruppen`
   ADD PRIMARY KEY (`muskel_id`);
 
 --
--- Indizes für die Tabelle `nutzer`
+-- Indexes for table `nutzer`
 --
 ALTER TABLE `nutzer`
   ADD PRIMARY KEY (`nutzer_id`);
 
 --
--- Indizes für die Tabelle `nutzerapp`
+-- Indexes for table `nutzerapp`
 --
 ALTER TABLE `nutzerapp`
   ADD PRIMARY KEY (`nutzerapp_id`);
 
 --
--- Indizes für die Tabelle `sets`
---
-ALTER TABLE `sets`
-  ADD PRIMARY KEY (`sets_id`);
-
---
--- Indizes für die Tabelle `workout`
+-- Indexes for table `workout`
 --
 ALTER TABLE `workout`
   ADD PRIMARY KEY (`workout_id`);
 
 --
--- Indizes für die Tabelle `übungen`
+-- Indexes for table `übungen`
 --
 ALTER TABLE `übungen`
   ADD PRIMARY KEY (`übung_id`);
 
 --
--- AUTO_INCREMENT für exportierte Tabellen
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT für Tabelle `muskelgruppen`
+-- AUTO_INCREMENT for table `muskelgruppen`
 --
 ALTER TABLE `muskelgruppen`
   MODIFY `muskel_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
--- AUTO_INCREMENT für Tabelle `nutzer`
+-- AUTO_INCREMENT for table `nutzer`
 --
 ALTER TABLE `nutzer`
-  MODIFY `nutzer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `nutzer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT für Tabelle `nutzerapp`
+-- AUTO_INCREMENT for table `nutzerapp`
 --
 ALTER TABLE `nutzerapp`
-  MODIFY `nutzerapp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `nutzerapp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT für Tabelle `sets`
---
-ALTER TABLE `sets`
-  MODIFY `sets_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT für Tabelle `workout`
+-- AUTO_INCREMENT for table `workout`
 --
 ALTER TABLE `workout`
-  MODIFY `workout_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `workout_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT für Tabelle `übungen`
+-- AUTO_INCREMENT for table `übungen`
 --
 ALTER TABLE `übungen`
   MODIFY `übung_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;

@@ -41,10 +41,7 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
     </header>
 
     <section>
-        <div id="rest" onclick="changeDisplay()"></div>
-        <div id="info" onclick="changeDisplay()">
-            <div id="gain"></div>
-        </div>
+        <div id="rest"</div>
     </section>
 
     <section>
@@ -82,7 +79,6 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
     </section>
 
     <script src="fetch_workout.js"></script>
-    <script src="change_display.js"></script>
     <script src="fetch_gain.js"></script>
     <script src="fetch_rest.js"></script>
     <script src="fetch_weight.js"></script>
