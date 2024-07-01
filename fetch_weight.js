@@ -17,27 +17,47 @@ function fetchWeigthData() {
         }
       }
 
-      const weights = data.map((item) => item.gewicht);
       const dates = data.map((item) => item.datum);
+      const weights = data.map((item) => item.gewicht);
 
       var weigthOptions = {
         series: [
           {
-            name: "Weight",
+            name: "Gewicht",
             data: weights,
           },
         ],
         chart: {
+          type: "area",
           height: 350,
-          type: "line",
+          zoom: {
+            enabled: false,
+          },
         },
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          curve: "straight",
+        },
+
+        title: {
+          text: "Fundamental Analysis of Stocks",
+          align: "left",
+        },
+        subtitle: {
+          text: "Price Movements",
+          align: "left",
+        },
+        labels: dates,
         xaxis: {
-          categories: dates,
           type: "datetime",
         },
-        title: {
-          text: "Weight Over Time",
-          align: "left",
+        yaxis: {
+          opposite: true,
+        },
+        legend: {
+          horizontalAlign: "left",
         },
       };
 

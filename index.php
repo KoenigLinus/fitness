@@ -34,9 +34,9 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
             </div>
             <a href="logout.php" class="btn">Abmelden</a>
         <?php else: ?>
-            <a href="registrieren.php" class="register-btn">Registrieren</a>
+            <a href="registrieren.php" class="btn">Registrieren</a>
             <!--<a href="anmelden.php" class="login-btn">Anmelden</a>-->
-            <a href="login.php" class="login-btn btn">Anmelden</a>
+            <a href="login.php" class="btn">Anmelden</a>
         <?php endif; ?>
     </header>
 
@@ -66,7 +66,7 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
     <section>
         <h2>Gewichtsverlauf</h2>
         <div class="chart-container">
-            <div id="weigth"></div>
+            <div id="weight"></div>
         </div>
     </section>
 
@@ -78,7 +78,6 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
     <script src="change_display.js"></script>
     <script src="fetch_gain.js"></script>
     <script src="fetch_rest.js"></script>
-    <script src="fetch_weigth.js"></script>
-
+    <script src="fetch_weight.js"></script>
 </body>
 </html>
