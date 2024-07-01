@@ -80,9 +80,7 @@ function fetchRestData() {
               fontSize: "16px",
               formatter: function (seriesName, opts) {
                 return (
-                  seriesName +
-                  ":  " +
-                  opts.w.globals.series[opts.seriesIndex / 2.7]
+                  seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
                 );
               },
             },
