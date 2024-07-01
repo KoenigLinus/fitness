@@ -20,15 +20,19 @@ if (!isset($_GET["nutzer_id"]) || !is_numeric($_GET["nutzer_id"])) {
 
 session_start();
 
-$nutzer_id = $_GET["nutzer_id"]; // Assuming nutzer_id is passed as a GET parameter
+$nutzer_id = $_SESSION["nutzer_id"]; // Assuming nutzer_id is passed as a GET parameter
 
-echo "Nutzer ID: " . $nutzer_id . "<br>";
-
-$sql = "SELECT workout.split, workout.zeit
-        FROM workout
-        INNER JOIN nutzer_workout ON workout.workout_id = nutzer_workout.workout_id
-        INNER JOIN nutzer ON nutzer_workout.nutzer_id = nutzer.nutzer_id
-        WHERE nutzer.nutzer_id = ?;";
+$sql = " SELECT workout.split, workout.zeit
+FROM workout
+INNER JOIN (
+    SELECT split, MAX(workout_id) AS max_workout_id
+    FROM workout
+    GROUP BY split
+) latest_workouts ON workout.workout_id = latest_workouts.max_workout_id
+INNER JOIN nutzer_workout ON workout.workout_id = nutzer_workout.workout_id
+INNER JOIN nutzer ON nutzer_workout.nutzer_id = nutzer.nutzer_id
+WHERE nutzer.nutzer_id = ?
+ORDER BY workout.workout_id DESC;";
 
 $stmt = $conn->prepare($sql);
 if ($stmt === false) {

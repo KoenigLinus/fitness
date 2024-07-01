@@ -32,6 +32,7 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
                     $userName
                 ); ?>. Du bist Angemeldet</div>
             </div>
+            <a href="logout.php" class="btn">Abmelden</a>
         <?php else: ?>
             <a href="registrieren.php" class="register-btn">Registrieren</a>
             <!--<a href="anmelden.php" class="login-btn">Anmelden</a>-->

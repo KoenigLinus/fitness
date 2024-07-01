@@ -1,51 +1,67 @@
 <?php
-session_start();
-
-// Assuming user_id is stored in session
-if (!isset($_SESSION["nutzer_id"])) {
-    echo json_encode(["message" => "User ID not set in session."]);
-    exit();
-}
-
-$nutzer_id = $_SESSION["nutzer_id"];
-
-// Datenbankverbindungsparameter
-$servername = "localhost"; // oder 127.0.0.1
+// Establish database connection (replace with your own connection details)
+$servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "fitness";
 
-// Verbindung zur Datenbank herstellen
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Verbindung prüfen
+// Check connection
 if ($conn->connect_error) {
-    die("Verbindung fehlgeschlagen: " . $conn->connect_error);
+    die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
+}
+/*
+if (!isset($_GET["nutzer_id"]) || !is_numeric($_GET["nutzer_id"])) {
+    die(json_encode(["error" => "Invalid or missing nutzer_id"]));
+}*/
+
+//var_dump($_SESSION);
+
+session_start();
+
+$nutzer_id = $_SESSION["nutzer_id"]; // Assuming nutzer_id is passed as a GET parameter
+
+$sql = "SELECT workout.split, workout.zeit
+        FROM workout
+        INNER JOIN nutzer_workout ON workout.workout_id = nutzer_workout.workout_id
+        INNER JOIN nutzer ON nutzer_workout.nutzer_id = nutzer.nutzer_id
+        WHERE nutzer.nutzer_id = ?;";
+
+$stmt = $conn->prepare($sql);
+if ($stmt === false) {
+    die(json_encode(["error" => "Failed to prepare statement"]));
 }
 
-// SQL-Abfrage, um zeit und split aus der Tabelle workout für den spezifischen user_id abzurufen
-$sql = "SELECT zeit, split FROM workout WHERE user_id = ?";
-$stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $nutzer_id);
 $stmt->execute();
+
 $result = $stmt->get_result();
+
+if (!$result) {
+    die(json_encode(["error" => "Query execution failed"]));
+}
 
 $data = [];
 
-if ($result->num_rows > 0) {
-    // Ausgabe der Ergebnisse
-    while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
-    }
-} else {
-    echo json_encode(["message" => "Keine Ergebnisse gefunden."]);
-    exit();
+while ($row = $result->fetch_assoc()) {
+    $data[] = [
+        "split" => $row["split"],
+        "zeit" => $row["zeit"],
+    ];
 }
 
-// Ausgabe als JSON
-header("Content-Type: application/json");
-echo json_encode($data);
+if (empty($data)) {
+    die(
+        json_encode([
+            "error" => "No workouts found for user with ID: " . $nutzer_id,
+        ])
+    );
+}
 
-// Verbindung schließen
+echo json_encode($data, JSON_PRETTY_PRINT);
+
+$stmt->close();
 $conn->close();
+
 ?>

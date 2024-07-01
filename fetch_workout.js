@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", (event) => {
-  fetch("path/to/your_php_script.php") // Adjust the path to your PHP script
+  fetch("get_workout.php") // Adjust the path to your PHP script
     .then((response) => response.json())
     .then((data) => {
       const container = document.getElementById("workoutContainer");
