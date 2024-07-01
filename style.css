@@ -52,8 +52,7 @@ section {
     border-radius: 20px;
 }
 
-.register-btn:hover,
-.login-btn:hover {
+.btn:hover {
     background-color: #ec7c26;
 }
 
@@ -66,19 +65,11 @@ section {
     text-decoration: none;
     padding: 15px 0;
     border-radius: 4px;
+    margin: 10px 0;
 }
 
 .box:hover {
     background-color: #ec7c26;
-}
-
-.chart-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    box-sizing: border-box;
 }
 
 h1 {
@@ -88,33 +79,15 @@ h1 {
     margin: 0;
 }
 
-.latest-workouts {
-    display: <?php echo $loggedIn ? "block": "none";
-    ?>;
-    width: 100%;
-    text-align: center;
-    background-color: #fff;
-    color: #333;
-    padding: 10px;
-    margin: 10px 10px;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-}
-
-.latest-workouts h2 {
-    margin: 0;
-    padding: 10px 0;
-}
-
-.latest-workouts p {
-    margin: 0;
-    padding: 5px 0;
+.workout-l {
+    display: flex;
+    justify-content: space-between;
+    width: calc(60vw - 80px);
+    padding: 20px;
 }
 
 .divider_line {
     width: 100%;
     height: 2px;
     background-color: #f39f18;
-    margin: 10px 0;
 }

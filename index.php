@@ -50,7 +50,7 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
             <a href="add_workout.php" class="box">+</a>
             <div class="divider_line"></div>
             <div class="latest-workouts">
-                <div id="latest-workouts-list"></div>
+                <!-- Insert workouts here -->
             </div>
         <?php else: ?>
             <h2>Letzte Workouts</h2>
