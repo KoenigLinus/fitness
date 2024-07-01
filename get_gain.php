@@ -20,9 +20,9 @@ $nutzer_id = intval($_SESSION["nutzer_id"]);
 
 // SQL-Abfrage, um die relevanten Daten aus den Tabellen workout und sets abzurufen
 $sql = "
-    SELECT w.zeit, w.split, (s.reps * s.gewicht) AS volumen
+    SELECT w.zeit, w.split, (wu.reps * wu.gewicht) AS volumen
     FROM `workout` w
-    JOIN `sets` s ON w.workout_id = s.sets_id
+    JOIN `workout_übungen` wu ON wu.workout_id = w.workout_id
     JOIN `nutzer_workout` nw ON nw.workout_id = w.workout_id
     WHERE nw.nutzer_id = ?;";
 

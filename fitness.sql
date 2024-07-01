@@ -168,8 +168,8 @@ INSERT INTO `workout` (`workout_id`, `split`, `zeit`) VALUES
 CREATE TABLE `workout_übungen` (
   `workout_id` int(11) DEFAULT NULL,
   `übung_id` int(11) DEFAULT NULL,
-  `reps` varchar(255) DEFAULT NULL,
-  `gewicht` varchar(255) DEFAULT NULL
+  `reps` int(11) DEFAULT NULL,
+  `gewicht` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
