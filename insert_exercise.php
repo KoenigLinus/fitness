@@ -1,17 +1,20 @@
 <?php
 session_start();
-if(isset($_SESSION["user_id"])){
-    require_once("config.php");
-   // header("location: nutzer_app_data.php");
+
+if (!isset($_SESSION["nutzer_id"])) {
+    header("Location: login.html");
+    exit;
 }
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+require_once("config.php");
 
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 if ($conn->connect_error) {
     die("Verbindung fehlgeschlagen: " . $conn->connect_error);
 }
 
+$nutzer_id = $_SESSION["nutzer_id"];
 
 $split = $_POST['split'];
 $exercises = $_POST['exercises'];
@@ -25,6 +28,19 @@ $stmt->bind_param("s", $split);
 
 if ($stmt->execute()) {
     $workout_id = $stmt->insert_id;
+
+    // Beziehung zw. Nutzer und Workout in `nutzer_workout` einfügen
+    $sql_nutzer_workout = "INSERT INTO nutzer_workout (nutzer_id, workout_id) VALUES (?, ?)";
+    $stmt_nutzer_workout = $conn->prepare($sql_nutzer_workout);
+    $stmt_nutzer_workout->bind_param("ii", $nutzer_id, $workout_id);
+    if (!$stmt_nutzer_workout->execute()) {
+        echo "Fehler: " . $stmt_nutzer_workout->error;
+        $stmt_nutzer_workout->close();
+        $stmt->close();
+        $conn->close();
+        exit;
+    }
+    $stmt_nutzer_workout->close();
 
     for ($i = 0; $i < count($exercises); $i++) {
         $exercise_id = $exercises[$i];
@@ -52,7 +68,6 @@ if ($stmt->execute()) {
         }
         $stmt2->close();
 
-
         $sql3 = "INSERT INTO workout_übungen (workout_id, übung_id) VALUES (?, ?)";
         $stmt4 = $conn->prepare($sql3);
         $stmt4->bind_param("ii", $workout_id, $exercise_id);
@@ -63,6 +78,8 @@ if ($stmt->execute()) {
         $stmt4->close();
     }
     echo "Workout erfolgreich eingetragen!";
+    header("Location: index.php");
+    exit;
 } else {
     echo "Fehler: " . $stmt->error;
 }
@@ -70,6 +87,3 @@ if ($stmt->execute()) {
 $stmt->close();
 $conn->close();
 ?>
-
-
-

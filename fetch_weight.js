@@ -40,15 +40,6 @@ function fetchWeightData() {
         stroke: {
           curve: "straight",
         },
-
-        title: {
-          text: "Fundamental Analysis of Stocks",
-          align: "left",
-        },
-        subtitle: {
-          text: "Price Movements",
-          align: "left",
-        },
         labels: dates,
         xaxis: {
           type: "datetime",

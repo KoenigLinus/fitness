@@ -18,8 +18,8 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitness</title>
-    <link rel="icon" href="fitnessstudio.png" type="image/png">
+    <title>Fitness-Tracker</title>
+    <link rel="icon" href="gewichtheben.png" type="image/png">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
