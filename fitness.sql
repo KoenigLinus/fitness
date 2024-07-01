@@ -169,6 +169,7 @@ CREATE TABLE `workout_übungen` (
   `workout_id` int(11) DEFAULT NULL,
   `übung_id` int(11) DEFAULT NULL,
   `reps` int(11) DEFAULT NULL,
+  `sets` int(11) DEFAULT NULL,
   `gewicht` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -176,8 +177,8 @@ CREATE TABLE `workout_übungen` (
 -- Dumping data for table `workout_übungen`
 --
 
-INSERT INTO `workout_übungen` (`workout_id`, `übung_id`, `reps`, `gewicht`) VALUES
-(4, 1, 10, 40);
+INSERT INTO `workout_übungen` (`workout_id`, `übung_id`, `reps`, `sets`, `gewicht`) VALUES
+(4, 1, 10, 1, 40);
 
 -- --------------------------------------------------------
 
