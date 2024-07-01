@@ -1,9 +1,8 @@
 <?php
 session_start();
-if(isset($_SESSION["user_id"])){
-
-}else{
-   // header("location: index.html");
+if (isset($_SESSION["nutzer_id"])) {
+} else {
+    // header("location: index.html");
 }
 ?>
 
@@ -109,13 +108,20 @@ if(isset($_SESSION["user_id"])){
                         <label for="exercise">Übung:</label>
                         <select id="exercise" name="exercises[]">
                             <?php
-                            
-                             require_once("config.php");
+                            require_once "config.php";
 
-                            $conn = new mysqli($servername, $username, $password, $dbname);
+                            $conn = new mysqli(
+                                $servername,
+                                $username,
+                                $password,
+                                $dbname
+                            );
 
                             if ($conn->connect_error) {
-                                die("Verbindung fehlgeschlagen: " . $conn->connect_error);
+                                die(
+                                    "Verbindung fehlgeschlagen: " .
+                                        $conn->connect_error
+                                );
                             }
 
                             // Übungen abrufen
@@ -123,8 +129,12 @@ if(isset($_SESSION["user_id"])){
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {
-                                while($row = $result->fetch_assoc()) {
-                                    echo '<option value="' . $row["übung_id"] . '">' . $row["übung_b"] . '</option>';
+                                while ($row = $result->fetch_assoc()) {
+                                    echo '<option value="' .
+                                        $row["übung_id"] .
+                                        '">' .
+                                        $row["übung_b"] .
+                                        "</option>";
                                 }
                             } else {
                                 echo '<option value="">Keine Übungen verfügbar</option>';
@@ -143,7 +153,7 @@ if(isset($_SESSION["user_id"])){
                     </div>
                 </div>
             </div>
-            
+
             <button type="button" onclick="addExercise()">Weitere Übung hinzufügen</button>
             <button type="submit">Eintragen</button>
         </form>
@@ -175,6 +185,3 @@ if(isset($_SESSION["user_id"])){
     </script>
 </body>
 </html>
-
-
-
