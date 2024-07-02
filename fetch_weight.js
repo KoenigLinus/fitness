@@ -1,16 +1,14 @@
 let weightChart;
 
-// Fetch data and update chart/table
 function fetchWeightData() {
   fetch("get_weight.php")
     .then((response) => response.json())
     .then((data) => {
       console.log("weight: Fetched data:", data); // Debugging
 
-      // Ensure data is always treated as an array
+      // Schauen Sie sich die Kommies der anderen fetch_*.js an dies sind besser
       if (!Array.isArray(data)) {
         if (data !== null && typeof data === "object") {
-          // If data is a single object, convert it to an array
           data = [data];
         } else {
           throw new Error("Fetched data is neither an array nor an object");
@@ -65,7 +63,7 @@ function fetchWeightData() {
     .catch((error) => console.error("Error fetching data:", error));
 }
 
-// Load initial data
+// Halt nur wenn document gelanden ist
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Document loaded. Fetching data...");
   fetchWeightData();

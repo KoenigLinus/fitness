@@ -1,26 +1,19 @@
 <?php
-// Establish database connection (replace with your own connection details)
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "fitness";
 
+// connection (mit mexikanischem Akzent bitte `:)`)
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
 }
-/*
-if (!isset($_GET["nutzer_id"]) || !is_numeric($_GET["nutzer_id"])) {
-    die(json_encode(["error" => "Invalid or missing nutzer_id"]));
-}*/
-
-//var_dump($_SESSION);
 
 session_start();
 
-$nutzer_id = $_SESSION["nutzer_id"]; // Assuming nutzer_id is passed as a GET parameter
+$nutzer_id = $_SESSION["nutzer_id"]; 
 
 $sql = "SELECT w.split, w.zeit
 FROM workout w
@@ -34,23 +27,13 @@ INNER JOIN nutzer n ON nw.nutzer_id = n.nutzer_id
 WHERE n.nutzer_id = ?
 ORDER BY w.zeit DESC;";
 
-/*SELECT workout.split, workout.zeit
-FROM workout
-INNER JOIN (
-    SELECT split, MAX(workout_id) AS max_workout_id
-    FROM workout
-    GROUP BY split
-) latest_workouts ON workout.workout_id = latest_workouts.max_workout_id
-INNER JOIN nutzer_workout ON workout.workout_id = nutzer_workout.workout_id
-INNER JOIN nutzer ON nutzer_workout.nutzer_id = nutzer.nutzer_id
-WHERE nutzer.nutzer_id = ?
-ORDER BY workout.workout_id DESC;*/
 
 $stmt = $conn->prepare($sql);
 if ($stmt === false) {
     die(json_encode(["error" => "Failed to prepare statement"]));
 }
 
+// ? ist dann halt die nutzer_id
 $stmt->bind_param("i", $nutzer_id);
 $stmt->execute();
 
@@ -62,6 +45,7 @@ if (!$result) {
 
 $data = [];
 
+// aufteilen und formatieren
 while ($row = $result->fetch_assoc()) {
     $data[] = [
         "Split" => $row["split"],
@@ -77,6 +61,7 @@ if (empty($data)) {
     );
 }
 
+// export als json
 echo json_encode($data, JSON_PRETTY_PRINT);
 
 $stmt->close();

@@ -6,13 +6,13 @@ function fetchRestData() {
     .then((data) => {
       console.log("Rest: Fetched data:", data); // Debugging
 
-      if (data.error) {
+      if (data.error) { // Noch mehr debugging
         console.error("Error fetching data:", data.error);
         document.querySelector("#rest-error").innerText = data.error;
         return;
       }
 
-      // Ensure data is always treated as an array
+      // Noch mehr debugging weil wenn data kein array ist schiebt data.map stress
       if (!Array.isArray(data)) {
         if (data !== null && typeof data === "object") {
           data = [data];
@@ -34,7 +34,7 @@ function fetchRestData() {
         differences.push(differenceHours);
       }
 
-      console.log("Rest: splits:", splits); // ["Push", "Pull", ...]
+      console.log("Rest: splits:", splits); 
       console.log("Rest: diffrences:", differences);
 
       var restOptions = {
@@ -75,7 +75,6 @@ function fetchRestData() {
             },
           },
         },
-        //colors: ["#f39f1857", "#f39f1896", "#f39f1868", "#f39f18"],
         colors: ["#f39f18"],
         labels: splits,
         responsive: [
@@ -103,7 +102,6 @@ function fetchRestData() {
     .catch((error) => console.error("Error fetching data:", error));
 }
 
-// Load initial data
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Document loaded. Fetching data...");
   fetchRestData();

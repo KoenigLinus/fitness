@@ -1,21 +1,21 @@
 let gainChart;
 
-// Daten für das Diagramm abrufen und Diagramm/Tabelle aktualisieren
 function fetchgainData() {
   fetch("get_gain.php")
     .then((response) => response.json())
     .then((data) => {
       console.log("Gain: Fetched data:", data);
 
+      // Wenn data kein Array ist, mach es zum Array, weil sonst schiebt data.map(item) stress
       if (!Array.isArray(data)) {
         if (data !== null && typeof data === "object") {
-          // If data is a single object, convert it to an array
           data = [data];
         } else {
           throw new Error("Fetched data is neither an array nor an object");
         }
       }
 
+      // map data in zeit und split
       const zeit = data.map((item) => item.zeit);
       const splits = [...new Set(data.map((item) => item.split))];
 
@@ -39,28 +39,28 @@ function fetchgainData() {
           enabled: false,
         },
         xaxis: {
-          categories: zeit, // assuming `zeit` has the dates for categories
+          categories: zeit, 
           labels: {
-            show: false, // Versteckt die Beschriftungen der y-Achse
+            show: false, 
           },
         },
         yaxis: {
           labels: {
-            show: false, // Versteckt die Beschriftungen der y-Achse
+            show: false, 
           },
         },
         tooltip: {
           y: {
             formatter: function (val) {
-              return val.toFixed(2); // assuming `volumen` is not in percentage
+              return val.toFixed(2); 
             },
           },
         },
       };
 
-      if (gainChart) {
+      if (gainChart) { // Wenn es schon gain chart gitb dann update
         gainChart.updateOptions(gainOptions);
-      } else {
+      } else { // wenn nicht dann mach neu
         gainChart = new ApexCharts(
           document.querySelector("#gain"),
           gainOptions,
@@ -71,7 +71,6 @@ function fetchgainData() {
     .catch((error) => console.error("Error fetching data:", error));
 }
 
-// Initiale Daten laden
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Document loaded. Fetching data...");
   fetchgainData();
