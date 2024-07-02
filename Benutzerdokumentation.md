@@ -38,7 +38,9 @@ Desto nährer ein Ring der Grafik zu 0 fällt, desto wichtiger ist ein kommendes
 
 ## Volumenverlauf
 
+Der Volumenverlauf ist die zweite Grafik die sich von den direkten Angaben der Workouts anzeigen lassen. Das Volumen zeigt einem wieviel Gewicht man an einem Tag insgesammt gehobten hat. Es ist ein guter Indikator für die langfristige Kraftsteigerung.
 
+![image](https://github.com/KoenigLinus/fitness/assets/93053722/788c3b85-be00-4815-87e4-7df34bb60437)
 
 ## Gewichtsverlauf
 
