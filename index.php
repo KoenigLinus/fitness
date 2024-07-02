@@ -28,6 +28,9 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
             <a href="login.php" class="btn">Anmelden</a>
         <?php endif; ?>
     </header>
+
+    <?php if ($loggedIn): ?>
+
     <section>
         <h2>Rest-Time
             <span class="info-icon" onclick="showPopup()">i</span>
@@ -39,19 +42,12 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
         </div>
     </section>
     <section>
-        <?php if ($loggedIn): ?>
             <h2>Letzte Workouts</h2>
             <a href="add_workout.php" class="box">+</a>
             <div class="divider_line"></div>
             <div class="latest-workouts">
                 <!-- Insert workouts here -->
             </div>
-        <?php else: ?>
-            <h2>Letzte Workouts</h2>
-            <a href="add_workout.php" class="box">+</a>
-            <div class="divider_line"></div>
-            <div class="box">Not logged in</div>
-        <?php endif; ?>
     </section>
     <section>
         <h2>Gewichtsverlauf</h2>
@@ -69,6 +65,15 @@ $userName = $loggedIn ? $_SESSION["f_name"] : "";
             <div id="gain"></div>
         </div>
     </section>
+
+    <?php else: ?>
+
+    <section>
+        <h2>Bitte Loggen Sie sich ein</h2>
+    </section>
+
+    <?php endif; ?>
+
     <section>
         <a href="impressum.php" class="box">Impressum und Kontakt</a>
     </section>
