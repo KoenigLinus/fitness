@@ -30,4 +30,8 @@ Aus jenen Daten werden zweierlei Grafiken "gefüttert".
 
 Jedem Kraftsportler ist bewusst, wie wichtig die Resttime (zu dt. Ruhezeit) von Muskeln ist. Deshalb werden sie bei unserem Programm sofort angezeigt, um weite Störungen zu vermeiden. 
 
-Bei uns besonders: Durch detallier
+Bei uns besonders: Durch detalliertere Einträge als sonst üblich können wir die Resttime für spezifische definierte Muskelgruppen sogenannte Splits festlegen. 
+
+![image](https://github.com/KoenigLinus/fitness/assets/93053722/f9cde53e-9aef-4474-9ae0-45d447e8ceaf)
+
+Desto nährer ein Ring der Grafik zu 0 fällt, desto wichtiger ist ein kommendes Training. Bei Werten unter 0 ist sie Notwendig, um keinen Muskelabbau zu vermeiden.
