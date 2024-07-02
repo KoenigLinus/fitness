@@ -35,3 +35,15 @@ Bei uns besonders: Durch detalliertere Einträge als sonst üblich können wir d
 ![image](https://github.com/KoenigLinus/fitness/assets/93053722/f9cde53e-9aef-4474-9ae0-45d447e8ceaf)
 
 Desto nährer ein Ring der Grafik zu 0 fällt, desto wichtiger ist ein kommendes Training. Bei Werten unter 0 ist sie Notwendig, um keinen Muskelabbau zu vermeiden.
+
+## Volumenverlauf
+
+
+
+## Gewichtsverlauf
+
+Der Gewichtsverlauf ist weniger essentiell, jedoch ein angenehmes Extra. Er dokumentiert auf uneingeschränkter Basis die Masse des eigenen Körpers.
+
+![image](https://github.com/KoenigLinus/fitness/assets/93053722/6a9b76f0-f736-40c0-a69a-f7bc4e7d1ca2)
+
+
