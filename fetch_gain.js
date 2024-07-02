@@ -40,6 +40,14 @@ function fetchgainData() {
         },
         xaxis: {
           categories: zeit, // assuming `zeit` has the dates for categories
+          labels: {
+            show: false, // Versteckt die Beschriftungen der y-Achse
+          },
+        },
+        yaxis: {
+          labels: {
+            show: false, // Versteckt die Beschriftungen der y-Achse
+          },
         },
         tooltip: {
           y: {
