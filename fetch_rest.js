@@ -30,9 +30,7 @@ function fetchRestData() {
       for (let i = 0; i < time.length; i++) {
         let dateFromArray = new Date(time[i]);
         let differenceMs = today - dateFromArray;
-        let differenceHours = Math.floor(
-          (80 - differenceMs / 60000 / 60) * 2.777,
-        );
+        let differenceHours = Math.floor(100 - differenceMs / 60000 / 60);
         differences.push(differenceHours);
       }
 
